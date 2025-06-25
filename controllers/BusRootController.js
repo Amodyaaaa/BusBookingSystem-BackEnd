@@ -6,7 +6,8 @@ const busModel = require("../models/BusModel");
 
 
 const addBusRoot = async (req, res) => {
-    const { root_number, index, start_place, end_place, distance, travel_time, start_time } = req.body;
+    console.log("Server",req.body);
+    const { root_number, fee, index, start_place, end_place, distance, travel_time, start_time } = req.body;
 
     try {
         if (!root_number || !distance || !travel_time || (index === undefined && !start_place) || index < 0) {
@@ -17,19 +18,27 @@ const addBusRoot = async (req, res) => {
 
         // Check if the bus already has a root ID
         const bus = await busModel.findById(bus_id);
+
         if (bus.busRootId) {
             const existingBusRoot = await BusRootModel.findById(bus.busRootId);
-
-            // If the bus already has a root, check if it's the same root number
-            if (existingBusRoot.root_number !== root_number) {
-                return res.status(400).json({ response_code: 400, success: false, message: 'Bus already has a different root assigned' });
+            
+            if (existingBusRoot) {
+                console.log("✅ existingBusRoot found:", existingBusRoot);
+                if (existingBusRoot.root_number !== root_number) {
+                    console.log("⚠️ Different root number provided");
+                    return res.status(400).json({
+                        response_code: 400,
+                        success: false,
+                        message: 'Bus already has a different root assigned'
+                    });
+                }
             }
         }
 
         let busRoot = await BusRootModel.findOne({ root_number, busId: bus_id });
 
         if (!busRoot) {
-            if (index !== 0) {
+            if (index !== 0) { 
                 return res.status(400).json({ response_code: 400, success: false, message: 'Invalid index for the first segment' });
             }
             if (!start_place) {
@@ -39,6 +48,7 @@ const addBusRoot = async (req, res) => {
                 root_number,
                 busId: bus_id,
                 start_time,
+                fee,
                 segments: [{ start_place, end_place, distance, travel_time }]
             });
         } else {

@@ -40,6 +40,10 @@ const BusRootSchema = new Schema(
             type: Date,
             required: false,
         },
+        fee:{
+            type: Number,
+            required: true,
+        },
         segments: [SegmentSchema],
     }
 );
