@@ -469,7 +469,7 @@ const getAllBusesPagination = async (req, res) => {
             .populate('busRootId')
             .exec();
 
-        console.log(buses);
+        // console.log(buses);
         const total = await BusModel.countDocuments(busQuery);
 
         res.status(200).json({
