@@ -1,77 +1,101 @@
-# 🚌 Bus Booking System – Backend
 
-This is the backend API for the Bus Booking System built using **Node.js**, **Express**, and **MongoDB**. It provides routes and controllers for managing buses, passengers, bookings, payments, and more.
 
----
+# 🚀 Node.js Project Setup Guide (Windows)
 
-## 🚀 Features
-
-* JWT-based authentication for passengers and bus operators
-* Seat booking with availability checking
-* Route and segment management
-* Stripe payment integration
-* Email confirmations for bookings
+This guide will walk you through setting up and running the project on a **Windows system**.
 
 ---
 
-## 💠 Tech Stack
+## ✅ Prerequisites
 
-* Node.js
-* Express.js
-* MongoDB + Mongoose
-* JWT (JSON Web Tokens)
-* Stripe API
-* Nodemailer
+Make sure the following tools are installed on your system:
 
----
+### 1. [Node.js](https://nodejs.org)
+- Download and install the latest stable version.
+- The installer includes **npm**, the Node package manager.
 
-## 📦 Setup Instructions
+### 2. [Git for Windows](https://git-scm.com)
+- Download and install Git.
+- During installation, you can choose **Git Bash** as your terminal if preferred.
 
-### 1. Clone the Repository
+### 3. Verify Installations
+
+Open **Command Prompt** or **Git Bash** and run:
 
 ```bash
-git clone https://github.com/Amodyaaaa/BusBookingSystem-BackEnd.git
-cd BusBookingSystem-BackEnd
+node -v
+npm -v
+git --version
 ```
+
+You should see version numbers if everything is installed correctly.
 
 ---
 
-### 2. Install Dependencies
+## 📦 Clone the Project
+
+Use the following command to clone the repository:
+
+```bash
+git clone https://github.com/your-username/your-project.git
+```
+
+> Replace the URL with the actual HTTPS link to your GitHub repository.
+
+---
+
+## 📁 Navigate into the Project Directory
+
+```bash
+cd your-project
+```
+
+> Replace `your-project` with the folder name created after cloning.
+
+---
+
+## 📥 Install Dependencies
+
+Install all required packages using:
 
 ```bash
 npm install
 ```
 
-This will install all required packages defined in `package.json`.
+This command will read `package.json` and install everything needed.
 
 ---
 
-### 3. Environment Variables
+### 4. Environment Variables
 
 Create a `.env` file in the root of the project with the following example content:
 
 ```env
 PORT=4000
-MONGO_URI=mongodb://localhost:27017/bus_system
-JWT_SECRET=your_jwt_secret_key
-STRIPE_SECRET_KEY=your_stripe_secret_key
-EMAIL_USER=your_email@example.com
-EMAIL_PASS=your_email_password
+MONGO_URI=<MongoDB ATlas Cluster URL>
+STRIPE_SECRET_KEY=<Stripe Secret Key (Starts with sk)>
+SECRET=<JWT Token>
 ```
 
-> ⚠️ **Never commit your `.env` file!** Add it to `.gitignore`.
 
----
+## ▶️ Run the Project
 
-### 4. Start the Server
+Start the development server using:
 
 ```bash
 npm start
 ```
 
-Server will run on: [http://localhost:4000](http://localhost:4000)
+You should see output indicating the app is running, typically at:
+
+```
+http://localhost:3000
+```
+
+Open your browser and visit the URL to view the project.
 
 ---
+
 
 ## 📁 Folder Structure
 
@@ -96,15 +120,9 @@ Server will run on: [http://localhost:4000](http://localhost:4000)
 
 ---
 
-## ✅ To-Do
-
-* Admin role & dashboard
-* Bus tracking system
-* SMS booking confirmations
-* Frontend integration (React)
-
----
-
 ## 📡 License
 
 This project is open-source and available under the [MIT License](https://opensource.org/licenses/MIT).
+
+
+
