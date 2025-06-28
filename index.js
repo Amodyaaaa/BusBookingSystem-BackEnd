@@ -12,6 +12,8 @@ const busBookRoute = require("./routes/bookingRoute");
 const paymentDRoute = require("./routes/paymetDRoute");
 const stripeRoute = require("./routes/stripeRoute");
 const bookingConfirmationRoute = require("./routes/bookingConfirmEmailSendRoute");
+const bookingRoutes = require("./routes/bookingRoute");
+
 
 app.use(express.urlencoded({ extended: false }));
 //app.use(bodyParser.json({ limit: "50mb", extended: true }));
@@ -28,6 +30,7 @@ app.use("/busbook", busBookRoute);
 app.use("/paymentDetails", paymentDRoute);
 app.use("/stripe", stripeRoute);
 app.use("/bookigConfim", bookingConfirmationRoute);
+app.use("/bookings", bookingRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
