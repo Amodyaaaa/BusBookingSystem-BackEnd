@@ -4,10 +4,12 @@ const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 router.post("/create-payment-intent", async (req, res) => {
+  const amount = Number(req.body.amount);
   try {
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: req.body.amount,
+      amount: amount,
       currency: "usd",
+      payment_method_types: ["card"],
     });
     res.status(200).send({
       clientSecret: paymentIntent.client_secret,
