@@ -37,7 +37,7 @@ You should see version numbers if everything is installed correctly.
 Use the following command to clone the repository:
 
 ```bash
-git clone https://github.com/your-username/your-project.git
+git clone https://github.com/Amodyaaaa/BusBookingSystem-BackEnd.git
 ```
 
 > Replace the URL with the actual HTTPS link to your GitHub repository.
