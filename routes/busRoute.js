@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-const { addBus, loginBus, getBusById, getAllBusesPagination, updateBus, deleteBus, requestPasswordReset,
+const { addBus, loginBus, getBusById, getAllBusesPagination, calculateFare, updateBus, deleteBus, requestPasswordReset,
     verifyOTP,
     resetPassword,
     placeConfirm,
@@ -26,6 +26,7 @@ router.put("/updateBusRootId/:busId", busAuthentication, updateBusRootId);
 router.get("/getBusLocation", busAuthentication, getBusLocation);
 router.get("/getBusLocationbyBusID/:busId", getBusLocationbyID);
 router.get("/getLocations/:busId", passangerAuthentication, getLocations);
+router.get("/calculateFare", passangerAuthentication, calculateFare);
 
 router.post("/placeConfirm", busAuthentication, placeConfirm);
 
