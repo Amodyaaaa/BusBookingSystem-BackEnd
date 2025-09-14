@@ -554,6 +554,55 @@ const updateBusRootId = async (req, res) => {
         res.status(500).json({ response_code: 400,success: false, message: error.message });
     }
 };
+
+
+const calculateFare = async (req, res) => {
+  try {
+    const { busId, startPlace, endPlace } = req.query;
+
+    if (!busId || !startPlace || !endPlace) {
+      return res.status(400).json({ success: false, message: "Missing params" });
+    }
+
+    // 1. Get bus root by busId
+    const busRoot = await BusRootModel.findOne({ busId });
+    if (!busRoot) {
+      return res.status(404).json({ success: false, message: "Bus root not found" });
+    }
+
+    const feePerKm = busRoot.fee; // here `fee` = per km rate
+
+    // 2. Find all segments
+    const segments = busRoot.segments;
+
+    // Find index of start and end places
+    const startIndex = segments.findIndex(seg => seg.start_place === startPlace);
+    const endIndex = segments.findIndex(seg => seg.end_place === endPlace);
+
+    if (startIndex === -1 || endIndex === -1 || startIndex > endIndex) {
+      return res.status(400).json({ success: false, message: "Invalid start or end place" });
+    }
+
+    // 3. Calculate total distance
+    let distance = 0;
+    for (let i = startIndex; i <= endIndex; i++) {
+      distance += segments[i].distance;
+    }
+
+    return res.json({
+      success: true,
+      feePerKm,
+      distance,
+      totalFare: distance * feePerKm,
+    });
+
+  } catch (err) {
+    console.error("Error calculating fare:", err);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
 module.exports = {
     addBus,
     getBusById,
@@ -570,5 +619,6 @@ module.exports = {
     getAllBusesWithBusRoot,
     getUserRole,
     getBusLocationbyID,
-    getLocations
+    getLocations,
+    calculateFare
 }
