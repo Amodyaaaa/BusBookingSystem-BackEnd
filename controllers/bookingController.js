@@ -3,7 +3,7 @@ const Booking = require('../models/bookingModel');
 const Passenger = require('../models/PassangerModel');
 
 const bookSeat = async (req, res) => {
-  const { busId, passengerId, seatNumber, startPlace, endPlace, bookingDate } = req.body;
+  const { busId, passengerId, seatNumber, startPlace, endPlace, bookingDate, fare, distance } = req.body;
 
   try {
       const bus = await Bus.findById(busId).populate('busRootId');
@@ -50,13 +50,6 @@ const bookSeat = async (req, res) => {
           return res.status(400).json({ response_code: 400, success: false, message: 'Bus is fully booked' });
       }
 
-      let totalDistance = 0;
-      for (let i = startSegmentIndex; i <= endSegmentIndex; i++) {
-          totalDistance += route.segments[i].distance;
-      }
-
-      const fare = totalDistance * 1;
-
       const booking = new Booking({
           busId,
           passengerId,
@@ -64,7 +57,7 @@ const bookSeat = async (req, res) => {
           startPlace,
           endPlace,
           bookingDate,
-          distance: totalDistance,
+          distance: distance,
           fare: fare
       });
 
