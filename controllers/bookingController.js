@@ -34,16 +34,16 @@ const bookSeat = async (req, res) => {
       }
 
       // Check if the passenger has already booked the same route on the same date
-      const existingPassengerBooking = await Booking.findOne({ 
-          busId, 
-          passengerId, 
-          startPlace, 
-          endPlace, 
-          bookingDate 
-      });
-      if (existingPassengerBooking) {
-          return res.status(400).json({ response_code: 400, success: false, message: 'Passenger has already booked this route on the same date' });
-      }
+      // const existingPassengerBooking = await Booking.findOne({ 
+      //     busId, 
+      //     passengerId, 
+      //     startPlace, 
+      //     endPlace, 
+      //     bookingDate 
+      // });
+      // if (existingPassengerBooking) {
+      //     return res.status(400).json({ response_code: 400, success: false, message: 'Passenger has already booked this route on the same date' });
+      // }
 
       const totalBookings = await Booking.countDocuments({ busId, bookingDate });
       if (totalBookings >= bus.seat_count) {
